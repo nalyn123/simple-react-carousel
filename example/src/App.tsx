@@ -14,7 +14,30 @@ const App = () => {
 
   return (
     <Carousel {...carouselProps}>
-      <CarouselItem>test</CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
+      <CarouselItem>
+        <img src={sampleImg} alt='' />
+      </CarouselItem>
     </Carousel>
   )
 }
