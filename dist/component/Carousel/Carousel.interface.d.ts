@@ -4,4 +4,5 @@ export interface CarouselProps {
     slides?: number | string;
     hasArrow?: boolean;
     hasPaging?: boolean;
+    gap?: number | string;
 }
