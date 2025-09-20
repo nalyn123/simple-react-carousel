@@ -1,0 +1,53 @@
+.carousel__arrow {
+  position: absolute;
+  top: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover,
+  &__fade {
+    opacity: 0.8;
+  }
+
+  &__fade {
+    cursor: not-allowed;
+  }
+
+  &__left {
+    left: 15px;
+  }
+
+  &__right {
+    right: 15px;
+    transform: scaleX(-1) translateY(-50%);
+  }
+
+  &__icon {
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 15px;
+      height: 3px;
+      background: #fff;
+      border-radius: 4px;
+    }
+    &::before {
+      transform: rotate(-40deg);
+      margin-top: 11px;
+    }
+    &::after {
+      transform: rotate(40deg);
+      margin-top: 19px;
+    }
+  }
+}

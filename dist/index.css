@@ -1,0 +1,85 @@
+._Carousel-module__carousel__bP-bE {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+._Carousel-module__carousel__content__3jCYj {
+  display: flex;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: all 0.3s;
+}
+._Carousel-module__carousel__content__3jCYj::-webkit-scrollbar {
+  display: none;
+}
+._CarouselArrow-module__carousel__arrow__1hZzd {
+  position: absolute;
+  top: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+._CarouselArrow-module__carousel__arrow__1hZzd:hover, ._CarouselArrow-module__carousel__arrow__fade__2j7qJ {
+  opacity: 0.8;
+}
+._CarouselArrow-module__carousel__arrow__fade__2j7qJ {
+  cursor: not-allowed;
+}
+._CarouselArrow-module__carousel__arrow__left__rOmOC {
+  left: 15px;
+}
+._CarouselArrow-module__carousel__arrow__right__1AefL {
+  right: 15px;
+  transform: scaleX(-1) translateY(-50%);
+}
+._CarouselArrow-module__carousel__arrow__icon__3A28J {
+  position: relative;
+}
+._CarouselArrow-module__carousel__arrow__icon__3A28J::before, ._CarouselArrow-module__carousel__arrow__icon__3A28J::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 15px;
+  height: 3px;
+  background: #fff;
+  border-radius: 4px;
+}
+._CarouselArrow-module__carousel__arrow__icon__3A28J::before {
+  transform: rotate(-40deg);
+  margin-top: 11px;
+}
+._CarouselArrow-module__carousel__arrow__icon__3A28J::after {
+  transform: rotate(40deg);
+  margin-top: 19px;
+}
+._CarouselPagination-module__carousel__page__16BmN {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  transform: translateX(-50%);
+  gap: 5px;
+}
+._CarouselPagination-module__carousel__page__item__2tBSm {
+  width: 12px;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 100%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+._CarouselPagination-module__carousel__page__item__active__GdAyd {
+  background: #fff;
+}
+._CarouselItem-module__carousel__item__1HNEJ {
+  box-sizing: border-box;
+}
+._CarouselItem-module__carousel__item__1HNEJ > img {
+  width: 100%;
+}
