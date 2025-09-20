@@ -1,0 +1,6 @@
+.carousel__item {
+  box-sizing: border-box;
+}
+.carousel__item > img {
+  width: 100%;
+}

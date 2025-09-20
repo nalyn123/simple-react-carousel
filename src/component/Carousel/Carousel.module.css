@@ -1,0 +1,14 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.carousel__content {
+  display: flex;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: all 0.3s;
+}
+.carousel__content::-webkit-scrollbar {
+  display: none;
+}
