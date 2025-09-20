@@ -257,7 +257,7 @@ var CarouselModel = function CarouselModel(ref) {
       var containerWidth = ref.current.offsetWidth;
       var width = Math.floor(Number(slides)) * (contentWidth + Number(gap));
       var newScroll = activeSlide * width;
-      if (slides !== Math.floor(Number(slides)) && activeSlide === getTotal() - 1) {
+      if (slides !== Math.floor(Number(slides)) && activeSlide === getTotal() - 1 && activeSlide != 0) {
         var percentage = Number(slides) - Math.floor(Number(slides));
         newScroll -= contentWidth * percentage - Number(gap);
       }

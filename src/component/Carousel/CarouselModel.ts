@@ -22,7 +22,8 @@ export const CarouselModel = (ref: any) => {
 
       if (
         slides !== Math.floor(Number(slides)) &&
-        activeSlide === getTotal() - 1
+        activeSlide === getTotal() - 1 &&
+        activeSlide != 0
       ) {
         const percentage = Number(slides) - Math.floor(Number(slides))
         newScroll -= contentWidth * percentage - Number(gap)
