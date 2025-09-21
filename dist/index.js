@@ -13,10 +13,6 @@ function _objectWithoutPropertiesLoose(r, e) {
   return t;
 }
 
-var styles = {"carousel":"_Carousel-module__carousel__bP-bE","carousel__content":"_Carousel-module__carousel__content__3jCYj"};
-
-var styles$1 = {"carousel__arrow":"_CarouselArrow-module__carousel__arrow__1hZzd","carousel__arrow__fade":"_CarouselArrow-module__carousel__arrow__fade__2j7qJ","carousel__arrow__left":"_CarouselArrow-module__carousel__arrow__left__rOmOC","carousel__arrow__right":"_CarouselArrow-module__carousel__arrow__right__1AefL","carousel__arrow__icon":"_CarouselArrow-module__carousel__arrow__icon__3A28J"};
-
 var CarouselContext = React.createContext(null);
 var useCarouselContext = function useCarouselContext() {
   var context = React.useContext(CarouselContext);
@@ -122,109 +118,29 @@ var CarouselArrowModel = function CarouselArrowModel() {
   };
 };
 
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-var classNames = createCommonjsModule(function (module) {
-/*!
-	Copyright (c) 2018 Jed Watson.
-	Licensed under the MIT License (MIT), see
-	http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = '';
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (arg) {
-				classes = appendClass(classes, parseValue(arg));
-			}
-		}
-
-		return classes;
-	}
-
-	function parseValue (arg) {
-		if (typeof arg === 'string' || typeof arg === 'number') {
-			return arg;
-		}
-
-		if (typeof arg !== 'object') {
-			return '';
-		}
-
-		if (Array.isArray(arg)) {
-			return classNames.apply(null, arg);
-		}
-
-		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-			return arg.toString();
-		}
-
-		var classes = '';
-
-		for (var key in arg) {
-			if (hasOwn.call(arg, key) && arg[key]) {
-				classes = appendClass(classes, key);
-			}
-		}
-
-		return classes;
-	}
-
-	function appendClass (value, newClass) {
-		if (!newClass) {
-			return value;
-		}
-	
-		if (value) {
-			return value + ' ' + newClass;
-		}
-	
-		return value + newClass;
-	}
-
-	if ( module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else {
-		window.classNames = classNames;
-	}
-}());
-});
-
 var CarouselArrow = function CarouselArrow() {
   var _CarouselArrowModel = CarouselArrowModel(),
     _onClick = _CarouselArrowModel.onClick,
     isLeftActive = _CarouselArrowModel.isLeftActive,
     isRightActive = _CarouselArrowModel.isRightActive;
   return React__default.createElement("div", {
-    className: styles$1.carousel__arrows
+    className: 'carousel__arrows'
   }, React__default.createElement("div", {
-    className: classNames(styles$1.carousel__arrow, styles$1.carousel__arrow__left, !isLeftActive && styles$1.carousel__arrow__fade),
+    className: "carousel__arrow carousel__arrow__left " + (!isLeftActive ? 'carousel__arrow__fade' : ''),
     onClick: function onClick() {
       return _onClick(-1);
     }
   }, React__default.createElement("span", {
-    className: styles$1.carousel__arrow__icon
+    className: 'carousel__arrow__icon'
   })), React__default.createElement("div", {
-    className: classNames(styles$1.carousel__arrow, styles$1.carousel__arrow__right, !isRightActive && styles$1.carousel__arrow__fade),
+    className: "carousel__arrow carousel__arrow__right\n          " + (!isRightActive ? 'carousel__arrow__fade' : '') + "\n        ",
     onClick: function onClick() {
       return _onClick(1);
     }
   }, React__default.createElement("span", {
-    className: styles$1.carousel__arrow__icon
+    className: 'carousel__arrow__icon'
   })));
 };
-
-var styles$2 = {"carousel__page":"_CarouselPagination-module__carousel__page__16BmN","carousel__page__item":"_CarouselPagination-module__carousel__page__item__2tBSm","carousel__page__item__active":"_CarouselPagination-module__carousel__page__item__active__GdAyd"};
 
 var CarouselPaginationModel = function CarouselPaginationModel() {
   var _useCarouselContext = useCarouselContext(),
@@ -252,13 +168,13 @@ var CarouselPagination = function CarouselPagination(_) {
     active = _CarouselPaginationMo.active,
     _onClick = _CarouselPaginationMo.onClick;
   return React__default.createElement("div", {
-    className: styles$2.carousel__page
+    className: 'carousel__page'
   }, Array.from({
     length: total
   }, function (_, i) {
     return React__default.createElement("div", {
       key: i,
-      className: classNames(styles$2.carousel__page__item, active === i && styles$2.carousel__page__item__active),
+      className: "\n            carousel__page__item\n            " + (active === i ? 'carousel__page__item__active' : '') + "\n          ",
       onClick: function onClick() {
         return _onClick(i);
       }
@@ -353,17 +269,15 @@ var CarouselContent = function CarouselContent(_ref2) {
     scroll = _CarouselModel.scroll;
   return React__default.createElement("div", {
     ref: ref,
-    className: classNames(styles.carousel, className)
+    className: "carousel " + className
   }, React__default.createElement("div", {
-    className: styles.carousel__content,
+    className: 'carousel__content',
     style: {
       transform: "translateX(" + scroll + "px)",
       gap: gap + "px"
     }
   }, children), hasArrow && React__default.createElement(CarouselArrow, null), hasPaging && React__default.createElement(CarouselPagination, null));
 };
-
-var styles$3 = {"carousel__item":"_CarouselItem-module__carousel__item__1HNEJ"};
 
 var CarouselItemModel = function CarouselItemModel() {
   var _useCarouselContext = useCarouselContext(),
@@ -380,7 +294,7 @@ var CarouselItem = function CarouselItem(_ref) {
   var _CarouselItemModel = CarouselItemModel(),
     width = _CarouselItemModel.width;
   return React__default.createElement("div", {
-    className: classNames(styles$3.carousel__item, className),
+    className: "carousel__item " + className,
     style: {
       width: width + "px",
       minWidth: width + "px"
