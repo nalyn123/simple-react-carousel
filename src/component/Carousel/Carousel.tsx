@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import styles from './Carousel.module.scss'
+import './Carousel.scss'
 import { CarouselProps } from './Carousel.interface'
 import { CarouselArrow } from '../CarouselArrow/CarouselArrow'
 import { CarouselPagination } from '../CarouselPagination/CarouselPagination'
@@ -28,9 +28,9 @@ const CarouselContent = ({ children, ...props }: CarouselProps) => {
   const { scroll } = CarouselModel(ref)
 
   return (
-    <div ref={ref} className={classNames(styles.carousel, className)}>
+    <div ref={ref} className={`carousel ${className}`}>
       <div
-        className={styles.carousel__content}
+        className='carousel__content'
         style={{ transform: `translateX(${scroll}px)`, gap: `${gap}px` }}
       >
         {children}
