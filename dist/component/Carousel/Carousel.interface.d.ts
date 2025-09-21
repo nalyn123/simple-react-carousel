@@ -10,4 +10,5 @@ export interface CarouselProps {
     gap?: number | string;
     spaceStart?: number | string;
     className?: string;
+    loop?: boolean;
 }

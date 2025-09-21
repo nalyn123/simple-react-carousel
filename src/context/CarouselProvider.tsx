@@ -23,6 +23,7 @@ interface CarouselProviderProps {
   slides?: number | SlidesProps
   gap: number | string
   spaceStart: number | string
+  loop: boolean
 }
 
 const CarouselContext = createContext<CarouselContextProps | null>(null)
@@ -40,7 +41,8 @@ export const CarouselProvider = ({
   totalSlides,
   slides,
   gap,
-  spaceStart
+  spaceStart,
+  loop
 }: CarouselProviderProps) => {
   const [activeSlide, setActiveSlide] = useState<number>(0)
   const [containerWidth, setContainerWidth] = useState<number>(0)
@@ -66,12 +68,29 @@ export const CarouselProvider = ({
     }
   }
 
+  const getTotal = () =>
+    Math.ceil(
+      totalSlides /
+        Math.floor(Number(newSlides) - Math.ceil(Number(spaceStart)))
+    )
+
+  const computeActiveSlides = () => {
+    setActiveSlide((prev) => (prev + 1 === getTotal() - 1 ? 0 : prev + 1))
+  }
+
   useEffect(() => {
     computeSlides()
-    window.addEventListener('resize', computeSlides)
+    window.addEventListener('resize', computeActiveSlides)
 
-    return () => window.removeEventListener('resize', computeSlides)
+    return () => window.removeEventListener('resize', computeActiveSlides)
   }, [slides])
+
+  useEffect(() => {
+    if (loop) {
+      setInterval(computeActiveSlides, 5000)
+      // return () => clearInterval(timer)
+    }
+  }, [])
 
   useEffect(() => {
     setContentWidth()

@@ -21,7 +21,8 @@ var CarouselProvider = function CarouselProvider(_ref) {
     totalSlides = _ref.totalSlides,
     slides = _ref.slides,
     gap = _ref.gap,
-    spaceStart = _ref.spaceStart;
+    spaceStart = _ref.spaceStart,
+    loop = _ref.loop;
   var _useState = useState(0),
     activeSlide = _useState[0],
     setActiveSlide = _useState[1];
@@ -51,13 +52,26 @@ var CarouselProvider = function CarouselProvider(_ref) {
       setNewSlides(Number(slides));
     }
   };
+  var getTotal = function getTotal() {
+    return Math.ceil(totalSlides / Math.floor(Number(newSlides) - Math.ceil(Number(spaceStart))));
+  };
+  var computeActiveSlides = function computeActiveSlides() {
+    setActiveSlide(function (prev) {
+      return prev + 1 === getTotal() - 1 ? 0 : prev + 1;
+    });
+  };
   useEffect(function () {
     computeSlides();
-    window.addEventListener('resize', computeSlides);
+    window.addEventListener('resize', computeActiveSlides);
     return function () {
-      return window.removeEventListener('resize', computeSlides);
+      return window.removeEventListener('resize', computeActiveSlides);
     };
   }, [slides]);
+  useEffect(function () {
+    if (loop) {
+      setInterval(computeActiveSlides, 5000);
+    }
+  }, []);
   useEffect(function () {
     setContentWidth();
   }, [containerWidth, newSlides]);
@@ -244,12 +258,15 @@ var Carousel = function Carousel(_ref) {
     _props$gap = props.gap,
     gap = _props$gap === void 0 ? 0 : _props$gap,
     _props$spaceStart = props.spaceStart,
-    spaceStart = _props$spaceStart === void 0 ? 0 : _props$spaceStart;
+    spaceStart = _props$spaceStart === void 0 ? 0 : _props$spaceStart,
+    _props$loop = props.loop,
+    loop = _props$loop === void 0 ? true : _props$loop;
   return React.createElement(CarouselProvider, {
     totalSlides: totalSlides,
     slides: slides,
     gap: gap,
-    spaceStart: spaceStart
+    spaceStart: spaceStart,
+    loop: loop
   }, React.createElement(CarouselContent, Object.assign({}, props), children));
 };
 var CarouselContent = function CarouselContent(_ref2) {

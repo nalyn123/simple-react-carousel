@@ -11,7 +11,8 @@ const App = () => {
       0: 2,
       768: 1
     },
-    gap: 15
+    gap: 15,
+    loop: false
     // spaceStart: 0.5
   }
 

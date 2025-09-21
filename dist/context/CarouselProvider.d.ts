@@ -20,7 +20,8 @@ interface CarouselProviderProps {
     slides?: number | SlidesProps;
     gap: number | string;
     spaceStart: number | string;
+    loop: boolean;
 }
 export declare const useCarouselContext: () => CarouselContextProps;
-export declare const CarouselProvider: ({ children, totalSlides, slides, gap, spaceStart }: CarouselProviderProps) => React.JSX.Element;
+export declare const CarouselProvider: ({ children, totalSlides, slides, gap, spaceStart, loop }: CarouselProviderProps) => React.JSX.Element;
 export {};
