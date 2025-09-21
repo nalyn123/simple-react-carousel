@@ -13,7 +13,7 @@ export const CarouselItem = ({
 
   return (
     <div
-      className={`carousel__item ${className}`}
+      className={`carousel__item ${className ?? ''}`}
       style={{ width: `${width}px`, minWidth: `${width}px` }}
       onClick={onClick}
     >

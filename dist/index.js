@@ -294,7 +294,7 @@ var CarouselItem = function CarouselItem(_ref) {
   var _CarouselItemModel = CarouselItemModel(),
     width = _CarouselItemModel.width;
   return React__default.createElement("div", {
-    className: "carousel__item " + className,
+    className: "carousel__item " + (className != null ? className : ''),
     style: {
       width: width + "px",
       minWidth: width + "px"
