@@ -13,9 +13,9 @@ function _objectWithoutPropertiesLoose(r, e) {
   return t;
 }
 
-var styles = {"carousel":"_bP-bE","carousel__content":"_3jCYj"};
+var styles = {"carousel":"_Carousel-module__carousel__bP-bE","carousel__content":"_Carousel-module__carousel__content__3jCYj"};
 
-var styles$1 = {"carousel__arrow":"_1hZzd","carousel__arrow__fade":"_2j7qJ","carousel__arrow__left":"_rOmOC","carousel__arrow__right":"_1AefL","carousel__arrow__icon":"_3A28J"};
+var styles$1 = {"carousel__arrow":"_CarouselArrow-module__carousel__arrow__1hZzd","carousel__arrow__fade":"_CarouselArrow-module__carousel__arrow__fade__2j7qJ","carousel__arrow__left":"_CarouselArrow-module__carousel__arrow__left__rOmOC","carousel__arrow__right":"_CarouselArrow-module__carousel__arrow__right__1AefL","carousel__arrow__icon":"_CarouselArrow-module__carousel__arrow__icon__3A28J"};
 
 var CarouselContext = React.createContext(null);
 var useCarouselContext = function useCarouselContext() {
@@ -224,7 +224,7 @@ var CarouselArrow = function CarouselArrow() {
   })));
 };
 
-var styles$2 = {"carousel__page":"_16BmN","carousel__page__item":"_2tBSm","carousel__page__item__active":"_GdAyd"};
+var styles$2 = {"carousel__page":"_CarouselPagination-module__carousel__page__16BmN","carousel__page__item":"_CarouselPagination-module__carousel__page__item__2tBSm","carousel__page__item__active":"_CarouselPagination-module__carousel__page__item__active__GdAyd"};
 
 var CarouselPaginationModel = function CarouselPaginationModel() {
   var _useCarouselContext = useCarouselContext(),
@@ -362,7 +362,7 @@ var CarouselContent = function CarouselContent(_ref2) {
   }, children), hasArrow && React__default.createElement(CarouselArrow, null), hasPaging && React__default.createElement(CarouselPagination, null));
 };
 
-var styles$3 = {"carousel__item":"_1HNEJ"};
+var styles$3 = {"carousel__item":"_CarouselItem-module__carousel__item__1HNEJ"};
 
 var CarouselItemModel = function CarouselItemModel() {
   var _useCarouselContext = useCarouselContext(),
