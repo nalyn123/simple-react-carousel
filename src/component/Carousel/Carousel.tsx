@@ -28,7 +28,7 @@ const CarouselContent = ({ children, ...props }: CarouselProps) => {
   const { scroll } = CarouselModel(ref)
 
   return (
-    <div ref={ref} className={`carousel ${className}`}>
+    <div ref={ref} className={`carousel ${className ?? ''}`}>
       <div
         className='carousel__content'
         style={{ transform: `translateX(${scroll}px)`, gap: `${gap}px` }}

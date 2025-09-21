@@ -269,7 +269,7 @@ var CarouselContent = function CarouselContent(_ref2) {
     scroll = _CarouselModel.scroll;
   return React__default.createElement("div", {
     ref: ref,
-    className: "carousel " + className
+    className: "carousel " + (className != null ? className : '')
   }, React__default.createElement("div", {
     className: 'carousel__content',
     style: {
