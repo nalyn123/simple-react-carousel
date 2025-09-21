@@ -10,7 +10,7 @@ export const CarouselArrow = () => {
     <div className='carousel__arrows'>
       <div
         className={`carousel__arrow carousel__arrow__left ${
-          !isLeftActive ? 'carousel__arrow__fade' : ''
+          !isLeftActive ? 'carousel__arrow__disabled' : ''
         }`}
         onClick={() => onClick(-1)}
       >
@@ -18,7 +18,7 @@ export const CarouselArrow = () => {
       </div>
       <div
         className={`carousel__arrow carousel__arrow__right
-          ${!isRightActive ? 'carousel__arrow__fade' : ''}
+          ${!isRightActive ? 'carousel__arrow__disabled' : ''}
         `}
         onClick={() => onClick(1)}
       >

@@ -10,11 +10,11 @@
   transition: all 0.3s;
 
   &:hover,
-  &__fade {
+  &__disabled {
     opacity: 0.8;
   }
 
-  &__fade {
+  &__disabled {
     cursor: not-allowed;
   }
 

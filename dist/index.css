@@ -23,10 +23,10 @@
   cursor: pointer;
   transition: all 0.3s;
 }
-.carousel__arrow:hover, .carousel__arrow__fade {
+.carousel__arrow:hover, .carousel__arrow__disabled {
   opacity: 0.8;
 }
-.carousel__arrow__fade {
+.carousel__arrow__disabled {
   cursor: not-allowed;
 }
 .carousel__arrow__left {

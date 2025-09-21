@@ -126,14 +126,14 @@ var CarouselArrow = function CarouselArrow() {
   return React__default.createElement("div", {
     className: 'carousel__arrows'
   }, React__default.createElement("div", {
-    className: "carousel__arrow carousel__arrow__left " + (!isLeftActive ? 'carousel__arrow__fade' : ''),
+    className: "carousel__arrow carousel__arrow__left " + (!isLeftActive ? 'carousel__arrow__disabled' : ''),
     onClick: function onClick() {
       return _onClick(-1);
     }
   }, React__default.createElement("span", {
     className: 'carousel__arrow__icon'
   })), React__default.createElement("div", {
-    className: "carousel__arrow carousel__arrow__right\n          " + (!isRightActive ? 'carousel__arrow__fade' : '') + "\n        ",
+    className: "carousel__arrow carousel__arrow__right\n          " + (!isRightActive ? 'carousel__arrow__disabled' : '') + "\n        ",
     onClick: function onClick() {
       return _onClick(1);
     }
