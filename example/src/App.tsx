@@ -7,12 +7,16 @@ import styles from './index.module.scss'
 
 const App = () => {
   const carouselProps = {
-    slides: {
-      0: 2,
-      768: 1
-    },
-    gap: 15,
-    loop: false
+    // slides: {
+    //   0: 2,
+    //   768: 1
+    // },
+    // slides: 1,
+    // gap: 15
+    slides: 1,
+    hasArrow: false,
+    gap: 0
+    // loop: false
     // spaceStart: 0.5
   }
 

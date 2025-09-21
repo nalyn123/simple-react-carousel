@@ -60,7 +60,7 @@ var CarouselProvider = function CarouselProvider(_ref) {
   };
   var computeActiveSlides = function computeActiveSlides() {
     setActiveSlide(function (prev) {
-      return prev + 1 === getTotal() - 1 ? 0 : prev + 1;
+      return prev < getTotal() - 1 ? prev + 1 : 0;
     });
   };
   React.useEffect(function () {
