@@ -9,10 +9,10 @@ const App = () => {
   const carouselProps = {
     slides: {
       0: 2,
-      768: 5
+      768: 1
     },
-    gap: 15,
-    spaceStart: 0.5
+    gap: 15
+    // spaceStart: 0.5
   }
 
   return (

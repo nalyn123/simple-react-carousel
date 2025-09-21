@@ -36,7 +36,8 @@ var CarouselProvider = function CarouselProvider(_ref) {
     setNewSlides = _useState4[1];
   var setContentWidth = function setContentWidth() {
     var s = Number(newSlides);
-    var newWidth = containerWidth / s;
+    var gaps = Number(gap) * Math.floor(s - 1);
+    var newWidth = (containerWidth - gaps) / s;
     setContentWidth2(newWidth);
   };
   var computeSlides = function computeSlides() {
@@ -210,8 +211,8 @@ var CarouselModel = function CarouselModel(ref) {
       if (isPartialSlide) {
         var fraction = Number(slides) - Math.floor(Number(slides));
         newScroll -= contentWidth * fraction - Number(gap);
-      } else {
-        newScroll -= contentWidth * Number(spaceStart || 1) - Number(gap);
+      } else if (spaceStart) {
+        newScroll -= contentWidth * Number(spaceStart || 1) + Number(gap) / 2;
       }
     }
     setScroll(newScroll * -1);

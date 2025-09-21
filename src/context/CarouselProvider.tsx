@@ -49,7 +49,8 @@ export const CarouselProvider = ({
 
   const setContentWidth = () => {
     const s = Number(newSlides)
-    let newWidth = containerWidth / s
+    const gaps = Number(gap) * Math.floor(s - 1)
+    let newWidth = (containerWidth - gaps) / s
     setContentWidth2(newWidth)
   }
 

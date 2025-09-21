@@ -39,8 +39,8 @@ export const CarouselModel = (ref: any) => {
       if (isPartialSlide) {
         const fraction = Number(slides) - Math.floor(Number(slides))
         newScroll -= contentWidth * fraction - Number(gap)
-      } else {
-        newScroll -= contentWidth * Number(spaceStart || 1) - Number(gap)
+      } else if (spaceStart) {
+        newScroll -= contentWidth * Number(spaceStart || 1) + Number(gap) / 2
       }
     }
 
