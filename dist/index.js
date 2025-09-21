@@ -373,7 +373,8 @@ var CarouselItemModel = function CarouselItemModel() {
 };
 
 var CarouselItem = function CarouselItem(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+    onClick = _ref.onClick;
   var _CarouselItemModel = CarouselItemModel(),
     width = _CarouselItemModel.width;
   return React__default.createElement("div", {
@@ -381,7 +382,8 @@ var CarouselItem = function CarouselItem(_ref) {
     style: {
       width: width + "px",
       minWidth: width + "px"
-    }
+    },
+    onClick: onClick
   }, children);
 };
 

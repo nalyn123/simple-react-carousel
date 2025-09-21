@@ -10,15 +10,13 @@ const App = () => {
       0: 2,
       768: 5
     },
-    hasArrow: true,
-    hasPaging: true,
     gap: 15,
     spaceStart: 0.5
   }
 
   return (
     <Carousel {...carouselProps}>
-      <CarouselItem>
+      <CarouselItem onClick={() => alert('test')}>
         <img src={sampleImg} alt='' />
       </CarouselItem>
       <CarouselItem>

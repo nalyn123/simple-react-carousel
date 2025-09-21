@@ -332,7 +332,8 @@ const CarouselItemModel = () => {
 };
 
 const CarouselItem = ({
-  children
+  children,
+  onClick
 }) => {
   const {
     width
@@ -342,7 +343,8 @@ const CarouselItem = ({
     style: {
       width: `${width}px`,
       minWidth: `${width}px`
-    }
+    },
+    onClick: onClick
   }, children);
 };
 
