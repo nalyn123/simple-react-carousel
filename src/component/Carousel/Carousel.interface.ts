@@ -8,4 +8,5 @@ export interface CarouselProps {
   hasPaging?: boolean
   gap?: number | string
   spaceStart?: number | string
+  className?: string
 }

@@ -303,14 +303,15 @@ const CarouselContent = ({
   const {
     hasArrow = true,
     hasPaging = true,
-    gap = 15
+    gap = 15,
+    className
   } = props;
   const {
     scroll
   } = CarouselModel(ref);
   return React.createElement("div", {
     ref: ref,
-    className: styles.carousel
+    className: classNames(styles.carousel, className)
   }, React.createElement("div", {
     className: styles.carousel__content,
     style: {

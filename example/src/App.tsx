@@ -16,7 +16,7 @@ const App = () => {
   }
 
   return (
-    <Carousel {...carouselProps}>
+    <Carousel className={styles.test2} {...carouselProps}>
       <CarouselItem onClick={() => alert('test')} className={styles.test}>
         <img src={sampleImg} alt='' />
       </CarouselItem>

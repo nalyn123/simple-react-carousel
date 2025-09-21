@@ -5,6 +5,7 @@ import { CarouselArrow } from '../CarouselArrow/CarouselArrow'
 import { CarouselPagination } from '../CarouselPagination/CarouselPagination'
 import { CarouselProvider } from '@/context/CarouselProvider'
 import { CarouselModel } from './CarouselModel'
+import classNames from 'classNames'
 
 export const Carousel = ({ children, ...props }: CarouselProps) => {
   const totalSlides = React.Children.toArray(children).length
@@ -23,11 +24,11 @@ export const Carousel = ({ children, ...props }: CarouselProps) => {
 
 const CarouselContent = ({ children, ...props }: CarouselProps) => {
   const ref = useRef(null)
-  const { hasArrow = true, hasPaging = true, gap = 15 } = props
+  const { hasArrow = true, hasPaging = true, gap = 15, className } = props
   const { scroll } = CarouselModel(ref)
 
   return (
-    <div ref={ref} className={styles.carousel}>
+    <div ref={ref} className={classNames(styles.carousel, className)}>
       <div
         className={styles.carousel__content}
         style={{ transform: `translateX(${scroll}px)`, gap: `${gap}px` }}

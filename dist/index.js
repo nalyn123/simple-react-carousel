@@ -347,12 +347,13 @@ var CarouselContent = function CarouselContent(_ref2) {
     _props$hasPaging = props.hasPaging,
     hasPaging = _props$hasPaging === void 0 ? true : _props$hasPaging,
     _props$gap2 = props.gap,
-    gap = _props$gap2 === void 0 ? 15 : _props$gap2;
+    gap = _props$gap2 === void 0 ? 15 : _props$gap2,
+    className = props.className;
   var _CarouselModel = CarouselModel(ref),
     scroll = _CarouselModel.scroll;
   return React__default.createElement("div", {
     ref: ref,
-    className: styles.carousel
+    className: classNames(styles.carousel, className)
   }, React__default.createElement("div", {
     className: styles.carousel__content,
     style: {
