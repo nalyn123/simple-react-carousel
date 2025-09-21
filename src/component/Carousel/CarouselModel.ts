@@ -8,40 +8,57 @@ export const CarouselModel = (ref: any) => {
     setContainerWidth,
     slides,
     contentWidth,
-    totalSlides
+    totalSlides,
+    spaceStart
   } = useCarouselContext()
   const [scroll, setScroll] = useState(0)
 
-  const getTotal = () => Math.ceil(totalSlides / Math.floor(Number(slides)))
+  const getTotal = () =>
+    Math.ceil(
+      totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart)))
+    )
 
-  const setContentWidth = () => {
+  const computeContainerWidth = () => {
     if (ref.current) {
       const containerWidth = ref.current.offsetWidth
-      const width = Math.floor(Number(slides)) * (contentWidth + Number(gap))
-      let newScroll = activeSlide * width
-
-      if (
-        slides !== Math.floor(Number(slides)) &&
-        activeSlide === getTotal() - 1 &&
-        activeSlide != 0
-      ) {
-        const percentage = Number(slides) - Math.floor(Number(slides))
-        newScroll -= contentWidth * percentage - Number(gap)
-      }
-
-      setScroll(newScroll * -1)
       setContainerWidth(containerWidth)
     }
   }
 
+  const setContentWidth = () => {
+    const conWidth = contentWidth + Number(gap)
+    const width =
+      Math.floor(Number(slides) - Math.ceil(Number(spaceStart))) * conWidth
+    let newScroll = activeSlide * width - Number(spaceStart) * conWidth
+
+    // TODO: fix
+    const isLastSlide = activeSlide === getTotal() - 1
+    const isPartialSlide = Number(slides) % 1 !== 0
+
+    if (isLastSlide && activeSlide !== 0) {
+      if (isPartialSlide) {
+        const fraction = Number(slides) - Math.floor(Number(slides))
+        newScroll -= contentWidth * fraction - Number(gap)
+      } else {
+        newScroll -= contentWidth * Number(spaceStart || 1) - Number(gap)
+      }
+    }
+
+    setScroll(newScroll * -1)
+  }
+
+  useEffect(() => {
+    computeContainerWidth()
+  }, [ref])
+
   useEffect(() => {
     setContentWidth()
-  }, [ref, activeSlide])
+  }, [contentWidth, activeSlide])
 
   useEffect(() => {
-    window.addEventListener('resize', setContentWidth)
+    window.addEventListener('resize', computeContainerWidth)
 
-    return () => window.removeEventListener('resize', setContentWidth)
+    return () => window.removeEventListener('resize', computeContainerWidth)
   }, [])
 
   return { scroll }

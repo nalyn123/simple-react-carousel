@@ -5,4 +5,5 @@ export interface CarouselProps {
     hasArrow?: boolean;
     hasPaging?: boolean;
     gap?: number | string;
+    spaceStart?: number | string;
 }

@@ -1,10 +1,13 @@
 import { useCarouselContext } from '@/context/CarouselProvider'
 
 export const CarouselPaginationModel = () => {
-  const { activeSlide, slides, totalSlides, setActiveSlide } =
+  const { activeSlide, slides, totalSlides, spaceStart, setActiveSlide } =
     useCarouselContext()
 
-  const getTotal = () => Math.ceil(totalSlides / Math.floor(Number(slides)))
+  const getTotal = () =>
+    Math.ceil(
+      totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart)))
+    )
 
   const onClick = (click: number) => {
     setActiveSlide(click)

@@ -2,7 +2,7 @@ import { useCarouselContext } from '@/context/CarouselProvider'
 import { useEffect, useState } from 'react'
 
 export const CarouselArrowModel = () => {
-  const { activeSlide, slides, totalSlides, setActiveSlide } =
+  const { activeSlide, slides, totalSlides, setActiveSlide, spaceStart } =
     useCarouselContext()
   const [isLeftActive, setLeftActive] = useState(true)
   const [isRightActive, setRightActive] = useState(true)
@@ -11,7 +11,10 @@ export const CarouselArrowModel = () => {
     setSlide(click)
   }
 
-  const getTotal = () => Math.ceil(totalSlides / Math.floor(Number(slides)))
+  const getTotal = () =>
+    Math.ceil(
+      totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart)))
+    )
 
   const setSlide = (click: number = 0) => {
     // TODO: slide to left animation

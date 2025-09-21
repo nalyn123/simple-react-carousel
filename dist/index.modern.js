@@ -24,7 +24,8 @@ var CarouselProvider = function CarouselProvider(_ref) {
   var children = _ref.children,
     totalSlides = _ref.totalSlides,
     slides = _ref.slides,
-    gap = _ref.gap;
+    gap = _ref.gap,
+    spaceStart = _ref.spaceStart;
   var _useState = useState(0),
     activeSlide = _useState[0],
     setActiveSlide = _useState[1];
@@ -52,7 +53,8 @@ var CarouselProvider = function CarouselProvider(_ref) {
       setContainerWidth: setContainerWidth,
       gap: gap,
       contentWidth: contentWidth,
-      setContentWidth: setContentWidth
+      setContentWidth: setContentWidth,
+      spaceStart: spaceStart
     }
   }, children);
 };
@@ -62,7 +64,8 @@ var CarouselArrowModel = function CarouselArrowModel() {
     activeSlide = _useCarouselContext.activeSlide,
     slides = _useCarouselContext.slides,
     totalSlides = _useCarouselContext.totalSlides,
-    setActiveSlide = _useCarouselContext.setActiveSlide;
+    setActiveSlide = _useCarouselContext.setActiveSlide,
+    spaceStart = _useCarouselContext.spaceStart;
   var _useState = useState(true),
     isLeftActive = _useState[0],
     setLeftActive = _useState[1];
@@ -73,7 +76,7 @@ var CarouselArrowModel = function CarouselArrowModel() {
     setSlide(click);
   };
   var getTotal = function getTotal() {
-    return Math.ceil(totalSlides / Math.floor(Number(slides)));
+    return Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
   };
   var setSlide = function setSlide(click) {
     if (click === void 0) {
@@ -204,9 +207,10 @@ var CarouselPaginationModel = function CarouselPaginationModel() {
     activeSlide = _useCarouselContext.activeSlide,
     slides = _useCarouselContext.slides,
     totalSlides = _useCarouselContext.totalSlides,
+    spaceStart = _useCarouselContext.spaceStart,
     setActiveSlide = _useCarouselContext.setActiveSlide;
   var getTotal = function getTotal() {
-    return Math.ceil(totalSlides / Math.floor(Number(slides)));
+    return Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
   };
   var onClick = function onClick(click) {
     setActiveSlide(click);
@@ -245,33 +249,46 @@ var CarouselModel = function CarouselModel(ref) {
     setContainerWidth = _useCarouselContext.setContainerWidth,
     slides = _useCarouselContext.slides,
     contentWidth = _useCarouselContext.contentWidth,
-    totalSlides = _useCarouselContext.totalSlides;
+    totalSlides = _useCarouselContext.totalSlides,
+    spaceStart = _useCarouselContext.spaceStart;
   var _useState = useState(0),
     scroll = _useState[0],
     setScroll = _useState[1];
   var getTotal = function getTotal() {
-    return Math.ceil(totalSlides / Math.floor(Number(slides)));
+    return Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
   };
-  var setContentWidth = function setContentWidth() {
+  var computeContainerWidth = function computeContainerWidth() {
     if (ref.current) {
       var containerWidth = ref.current.offsetWidth;
-      var width = Math.floor(Number(slides)) * (contentWidth + Number(gap));
-      var newScroll = activeSlide * width;
-      if (slides !== Math.floor(Number(slides)) && activeSlide === getTotal() - 1 && activeSlide != 0) {
-        var percentage = Number(slides) - Math.floor(Number(slides));
-        newScroll -= contentWidth * percentage - Number(gap);
-      }
-      setScroll(newScroll * -1);
       setContainerWidth(containerWidth);
     }
   };
+  var setContentWidth = function setContentWidth() {
+    var conWidth = contentWidth + Number(gap);
+    var width = Math.floor(Number(slides) - Math.ceil(Number(spaceStart))) * conWidth;
+    var newScroll = activeSlide * width - Number(spaceStart) * conWidth;
+    var isLastSlide = activeSlide === getTotal() - 1;
+    var isPartialSlide = Number(slides) % 1 !== 0;
+    if (isLastSlide && activeSlide !== 0) {
+      if (isPartialSlide) {
+        var fraction = Number(slides) - Math.floor(Number(slides));
+        newScroll -= contentWidth * fraction - Number(gap);
+      } else {
+        newScroll -= contentWidth * Number(spaceStart || 1) - Number(gap);
+      }
+    }
+    setScroll(newScroll * -1);
+  };
+  useEffect(function () {
+    computeContainerWidth();
+  }, [ref]);
   useEffect(function () {
     setContentWidth();
-  }, [ref, activeSlide]);
+  }, [contentWidth, activeSlide]);
   useEffect(function () {
-    window.addEventListener('resize', setContentWidth);
+    window.addEventListener('resize', computeContainerWidth);
     return function () {
-      return window.removeEventListener('resize', setContentWidth);
+      return window.removeEventListener('resize', computeContainerWidth);
     };
   }, []);
   return {
@@ -288,11 +305,14 @@ var Carousel = function Carousel(_ref) {
   var _props$slides = props.slides,
     slides = _props$slides === void 0 ? 1 : _props$slides,
     _props$gap = props.gap,
-    gap = _props$gap === void 0 ? 0 : _props$gap;
+    gap = _props$gap === void 0 ? 0 : _props$gap,
+    _props$spaceStart = props.spaceStart,
+    spaceStart = _props$spaceStart === void 0 ? 0 : _props$spaceStart;
   return React.createElement(CarouselProvider, {
     totalSlides: totalSlides,
     slides: slides,
-    gap: gap
+    gap: gap,
+    spaceStart: spaceStart
   }, React.createElement(CarouselContent, Object.assign({}, props), children));
 };
 var CarouselContent = function CarouselContent(_ref2) {

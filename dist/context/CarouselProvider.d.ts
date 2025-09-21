@@ -9,13 +9,15 @@ interface CarouselContextProps {
     contentWidth: number;
     setContentWidth: Function;
     gap: number | string;
+    spaceStart: number | string;
 }
 interface CarouselProviderProps {
     children: React.ReactNode;
     totalSlides: number;
     slides: number | string;
     gap: number | string;
+    spaceStart: number | string;
 }
 export declare const useCarouselContext: () => CarouselContextProps;
-export declare const CarouselProvider: ({ children, totalSlides, slides, gap }: CarouselProviderProps) => React.JSX.Element;
+export declare const CarouselProvider: ({ children, totalSlides, slides, gap, spaceStart }: CarouselProviderProps) => React.JSX.Element;
 export {};

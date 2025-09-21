@@ -10,6 +10,7 @@ interface CarouselContextProps {
   contentWidth: number
   setContentWidth: Function
   gap: number | string
+  spaceStart: number | string
 }
 
 interface CarouselProviderProps {
@@ -17,6 +18,7 @@ interface CarouselProviderProps {
   totalSlides: number
   slides: number | string
   gap: number | string
+  spaceStart: number | string
 }
 
 const CarouselContext = createContext<CarouselContextProps | null>(null)
@@ -33,7 +35,8 @@ export const CarouselProvider = ({
   children,
   totalSlides,
   slides,
-  gap
+  gap,
+  spaceStart
 }: CarouselProviderProps) => {
   const [activeSlide, setActiveSlide] = useState<number>(0)
   const [containerWidth, setContainerWidth] = useState<number>(0)
@@ -60,7 +63,8 @@ export const CarouselProvider = ({
         setContainerWidth,
         gap,
         contentWidth,
-        setContentWidth
+        setContentWidth,
+        spaceStart
       }}
     >
       {children}
