@@ -1,18 +1,18 @@
-._bP-bE {
+._Carousel-module__carousel__bP-bE {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
-._3jCYj {
+._Carousel-module__carousel__content__3jCYj {
   display: flex;
   scrollbar-width: none;
   -ms-overflow-style: none;
   transition: all 0.3s;
 }
-._3jCYj::-webkit-scrollbar {
+._Carousel-module__carousel__content__3jCYj::-webkit-scrollbar {
   display: none;
 }
-._1hZzd {
+._CarouselArrow-module__carousel__arrow__1hZzd {
   position: absolute;
   top: 50%;
   background: rgba(0, 0, 0, 0.5);
@@ -23,23 +23,23 @@
   cursor: pointer;
   transition: all 0.3s;
 }
-._1hZzd:hover, ._2j7qJ {
+._CarouselArrow-module__carousel__arrow__1hZzd:hover, ._CarouselArrow-module__carousel__arrow__fade__2j7qJ {
   opacity: 0.8;
 }
-._2j7qJ {
+._CarouselArrow-module__carousel__arrow__fade__2j7qJ {
   cursor: not-allowed;
 }
-._rOmOC {
+._CarouselArrow-module__carousel__arrow__left__rOmOC {
   left: 15px;
 }
-._1AefL {
+._CarouselArrow-module__carousel__arrow__right__1AefL {
   right: 15px;
   transform: scaleX(-1) translateY(-50%);
 }
-._3A28J {
+._CarouselArrow-module__carousel__arrow__icon__3A28J {
   position: relative;
 }
-._3A28J::before, ._3A28J::after {
+._CarouselArrow-module__carousel__arrow__icon__3A28J::before, ._CarouselArrow-module__carousel__arrow__icon__3A28J::after {
   content: "";
   position: absolute;
   top: 0;
@@ -49,15 +49,15 @@
   background: #fff;
   border-radius: 4px;
 }
-._3A28J::before {
+._CarouselArrow-module__carousel__arrow__icon__3A28J::before {
   transform: rotate(-40deg);
   margin-top: 11px;
 }
-._3A28J::after {
+._CarouselArrow-module__carousel__arrow__icon__3A28J::after {
   transform: rotate(40deg);
   margin-top: 19px;
 }
-._16BmN {
+._CarouselPagination-module__carousel__page__16BmN {
   position: absolute;
   bottom: 15px;
   left: 50%;
@@ -66,7 +66,7 @@
   transform: translateX(-50%);
   gap: 5px;
 }
-._2tBSm {
+._CarouselPagination-module__carousel__page__item__2tBSm {
   width: 12px;
   height: 12px;
   background: rgba(0, 0, 0, 0.5);
@@ -74,12 +74,12 @@
   cursor: pointer;
   transition: background 0.3s;
 }
-._GdAyd {
+._CarouselPagination-module__carousel__page__item__active__GdAyd {
   background: #fff;
 }
-._1HNEJ {
+._CarouselItem-module__carousel__item__1HNEJ {
   box-sizing: border-box;
 }
-._1HNEJ > img {
+._CarouselItem-module__carousel__item__1HNEJ > img {
   width: 100%;
 }

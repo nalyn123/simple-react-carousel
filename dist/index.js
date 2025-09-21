@@ -13,9 +13,9 @@ function _objectWithoutPropertiesLoose(r, e) {
   return t;
 }
 
-var styles = {"carousel":"_bP-bE","carousel__content":"_3jCYj"};
+var styles = {"carousel":"_Carousel-module__carousel__bP-bE","carousel__content":"_Carousel-module__carousel__content__3jCYj"};
 
-var styles$1 = {"carousel__arrow":"_1hZzd","carousel__arrow__fade":"_2j7qJ","carousel__arrow__left":"_rOmOC","carousel__arrow__right":"_1AefL","carousel__arrow__icon":"_3A28J"};
+var styles$1 = {"carousel__arrow":"_CarouselArrow-module__carousel__arrow__1hZzd","carousel__arrow__fade":"_CarouselArrow-module__carousel__arrow__fade__2j7qJ","carousel__arrow__left":"_CarouselArrow-module__carousel__arrow__left__rOmOC","carousel__arrow__right":"_CarouselArrow-module__carousel__arrow__right__1AefL","carousel__arrow__icon":"_CarouselArrow-module__carousel__arrow__icon__3A28J"};
 
 var CarouselContext = React.createContext(null);
 var useCarouselContext = function useCarouselContext() {
@@ -38,20 +38,41 @@ var CarouselProvider = function CarouselProvider(_ref) {
   var _useState3 = React.useState(0),
     contentWidth = _useState3[0],
     setContentWidth2 = _useState3[1];
+  var _useState4 = React.useState(spaceStart ? 2 : 1),
+    newSlides = _useState4[0],
+    setNewSlides = _useState4[1];
   var setContentWidth = function setContentWidth() {
-    var s = Number(slides);
+    var s = Number(newSlides);
     var newWidth = containerWidth / s;
     setContentWidth2(newWidth);
   };
+  var computeSlides = function computeSlides() {
+    if (typeof slides === 'object') {
+      var currSlides = Object.keys(slides).filter(function (value) {
+        return Number(value) <= window.innerWidth;
+      });
+      var key = Number(currSlides === null || currSlides === void 0 ? void 0 : currSlides[currSlides.length - 1]);
+      setNewSlides(slides === null || slides === void 0 ? void 0 : slides[key || 0]);
+    } else {
+      setNewSlides(Number(slides));
+    }
+  };
+  React.useEffect(function () {
+    computeSlides();
+    window.addEventListener('resize', computeSlides);
+    return function () {
+      return window.removeEventListener('resize', computeSlides);
+    };
+  }, [slides]);
   React.useEffect(function () {
     setContentWidth();
-  }, [containerWidth]);
+  }, [containerWidth, newSlides]);
   return React__default.createElement(CarouselContext.Provider, {
     value: {
       activeSlide: activeSlide,
       setActiveSlide: setActiveSlide,
       totalSlides: totalSlides,
-      slides: slides,
+      slides: newSlides,
       containerWidth: containerWidth,
       setContainerWidth: setContainerWidth,
       gap: gap,
@@ -203,7 +224,7 @@ var CarouselArrow = function CarouselArrow() {
   })));
 };
 
-var styles$2 = {"carousel__page":"_16BmN","carousel__page__item":"_2tBSm","carousel__page__item__active":"_GdAyd"};
+var styles$2 = {"carousel__page":"_CarouselPagination-module__carousel__page__16BmN","carousel__page__item":"_CarouselPagination-module__carousel__page__item__2tBSm","carousel__page__item__active":"_CarouselPagination-module__carousel__page__item__active__GdAyd"};
 
 var CarouselPaginationModel = function CarouselPaginationModel() {
   var _useCarouselContext = useCarouselContext(),
@@ -305,8 +326,7 @@ var Carousel = function Carousel(_ref) {
   var children = _ref.children,
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
   var totalSlides = React__default.Children.toArray(children).length;
-  var _props$slides = props.slides,
-    slides = _props$slides === void 0 ? 1 : _props$slides,
+  var slides = props.slides,
     _props$gap = props.gap,
     gap = _props$gap === void 0 ? 0 : _props$gap,
     _props$spaceStart = props.spaceStart,
@@ -342,7 +362,7 @@ var CarouselContent = function CarouselContent(_ref2) {
   }, children), hasArrow && React__default.createElement(CarouselArrow, null), hasPaging && React__default.createElement(CarouselPagination, null));
 };
 
-var styles$3 = {"carousel__item":"_1HNEJ"};
+var styles$3 = {"carousel__item":"_CarouselItem-module__carousel__item__1HNEJ"};
 
 var CarouselItemModel = function CarouselItemModel() {
   var _useCarouselContext = useCarouselContext(),

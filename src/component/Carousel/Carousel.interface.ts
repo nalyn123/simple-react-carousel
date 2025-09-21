@@ -1,6 +1,9 @@
+export interface SlidesProps {
+  [key: number]: number
+}
 export interface CarouselProps {
   children: React.ReactNode
-  slides?: number | string
+  slides?: number | SlidesProps
   hasArrow?: boolean
   hasPaging?: boolean
   gap?: number | string

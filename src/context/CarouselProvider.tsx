@@ -13,10 +13,14 @@ interface CarouselContextProps {
   spaceStart: number | string
 }
 
+interface SlidesProps {
+  [key: number]: number
+}
+
 interface CarouselProviderProps {
   children: React.ReactNode
   totalSlides: number
-  slides: number | string
+  slides?: number | SlidesProps
   gap: number | string
   spaceStart: number | string
 }
@@ -41,16 +45,36 @@ export const CarouselProvider = ({
   const [activeSlide, setActiveSlide] = useState<number>(0)
   const [containerWidth, setContainerWidth] = useState<number>(0)
   const [contentWidth, setContentWidth2] = useState<number>(0)
+  const [newSlides, setNewSlides] = useState<number>(spaceStart ? 2 : 1)
 
   const setContentWidth = () => {
-    const s = Number(slides)
+    const s = Number(newSlides)
     let newWidth = containerWidth / s
     setContentWidth2(newWidth)
   }
 
+  const computeSlides = () => {
+    if (typeof slides === 'object') {
+      const currSlides = Object.keys(slides).filter((value) => {
+        return Number(value) <= window.innerWidth
+      })
+      const key = Number(currSlides?.[currSlides.length - 1])
+      setNewSlides(slides?.[key || 0])
+    } else {
+      setNewSlides(Number(slides))
+    }
+  }
+
+  useEffect(() => {
+    computeSlides()
+    window.addEventListener('resize', computeSlides)
+
+    return () => window.removeEventListener('resize', computeSlides)
+  }, [slides])
+
   useEffect(() => {
     setContentWidth()
-  }, [containerWidth])
+  }, [containerWidth, newSlides])
 
   return (
     <CarouselContext.Provider
@@ -58,7 +82,7 @@ export const CarouselProvider = ({
         activeSlide,
         setActiveSlide,
         totalSlides,
-        slides,
+        slides: newSlides,
         containerWidth,
         setContainerWidth,
         gap,

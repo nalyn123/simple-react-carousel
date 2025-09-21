@@ -11,10 +11,13 @@ interface CarouselContextProps {
     gap: number | string;
     spaceStart: number | string;
 }
+interface SlidesProps {
+    [key: number]: number;
+}
 interface CarouselProviderProps {
     children: React.ReactNode;
     totalSlides: number;
-    slides: number | string;
+    slides?: number | SlidesProps;
     gap: number | string;
     spaceStart: number | string;
 }

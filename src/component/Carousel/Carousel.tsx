@@ -8,7 +8,7 @@ import { CarouselModel } from './CarouselModel'
 
 export const Carousel = ({ children, ...props }: CarouselProps) => {
   const totalSlides = React.Children.toArray(children).length
-  const { slides = 1, gap = 0, spaceStart = 0 } = props
+  const { slides, gap = 0, spaceStart = 0 } = props
   return (
     <CarouselProvider
       totalSlides={totalSlides}

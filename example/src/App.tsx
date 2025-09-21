@@ -6,7 +6,10 @@ import sampleImg from './img/sample.png'
 
 const App = () => {
   const carouselProps = {
-    slides: 3,
+    slides: {
+      0: 2,
+      768: 5
+    },
     hasArrow: true,
     hasPaging: true,
     gap: 15,

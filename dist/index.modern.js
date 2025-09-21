@@ -1,100 +1,94 @@
 import React, { createContext, useState, useEffect, useContext, useRef } from 'react';
 
-function _objectWithoutPropertiesLoose(r, e) {
-  if (null == r) return {};
-  var t = {};
-  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (-1 !== e.indexOf(n)) continue;
-    t[n] = r[n];
-  }
-  return t;
-}
+var styles = {"carousel":"_Carousel-module__carousel__bP-bE","carousel__content":"_Carousel-module__carousel__content__3jCYj"};
 
-var styles = {"carousel":"_bP-bE","carousel__content":"_3jCYj"};
+var styles$1 = {"carousel__arrow":"_CarouselArrow-module__carousel__arrow__1hZzd","carousel__arrow__fade":"_CarouselArrow-module__carousel__arrow__fade__2j7qJ","carousel__arrow__left":"_CarouselArrow-module__carousel__arrow__left__rOmOC","carousel__arrow__right":"_CarouselArrow-module__carousel__arrow__right__1AefL","carousel__arrow__icon":"_CarouselArrow-module__carousel__arrow__icon__3A28J"};
 
-var styles$1 = {"carousel__arrow":"_1hZzd","carousel__arrow__fade":"_2j7qJ","carousel__arrow__left":"_rOmOC","carousel__arrow__right":"_1AefL","carousel__arrow__icon":"_3A28J"};
-
-var CarouselContext = createContext(null);
-var useCarouselContext = function useCarouselContext() {
-  var context = useContext(CarouselContext);
+const CarouselContext = createContext(null);
+const useCarouselContext = () => {
+  const context = useContext(CarouselContext);
   if (!context) throw Error('useCarouselContext must be used inside CarouselProvider');
   return context;
 };
-var CarouselProvider = function CarouselProvider(_ref) {
-  var children = _ref.children,
-    totalSlides = _ref.totalSlides,
-    slides = _ref.slides,
-    gap = _ref.gap,
-    spaceStart = _ref.spaceStart;
-  var _useState = useState(0),
-    activeSlide = _useState[0],
-    setActiveSlide = _useState[1];
-  var _useState2 = useState(0),
-    containerWidth = _useState2[0],
-    setContainerWidth = _useState2[1];
-  var _useState3 = useState(0),
-    contentWidth = _useState3[0],
-    setContentWidth2 = _useState3[1];
-  var setContentWidth = function setContentWidth() {
-    var s = Number(slides);
-    var newWidth = containerWidth / s;
+const CarouselProvider = ({
+  children,
+  totalSlides,
+  slides,
+  gap,
+  spaceStart
+}) => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [contentWidth, setContentWidth2] = useState(0);
+  const [newSlides, setNewSlides] = useState(spaceStart ? 2 : 1);
+  const setContentWidth = () => {
+    const s = Number(newSlides);
+    let newWidth = containerWidth / s;
     setContentWidth2(newWidth);
   };
-  useEffect(function () {
+  const computeSlides = () => {
+    if (typeof slides === 'object') {
+      const currSlides = Object.keys(slides).filter(value => {
+        return Number(value) <= window.innerWidth;
+      });
+      const key = Number(currSlides === null || currSlides === void 0 ? void 0 : currSlides[currSlides.length - 1]);
+      setNewSlides(slides === null || slides === void 0 ? void 0 : slides[key || 0]);
+    } else {
+      setNewSlides(Number(slides));
+    }
+  };
+  useEffect(() => {
+    computeSlides();
+    window.addEventListener('resize', computeSlides);
+    return () => window.removeEventListener('resize', computeSlides);
+  }, [slides]);
+  useEffect(() => {
     setContentWidth();
-  }, [containerWidth]);
+  }, [containerWidth, newSlides]);
   return React.createElement(CarouselContext.Provider, {
     value: {
-      activeSlide: activeSlide,
-      setActiveSlide: setActiveSlide,
-      totalSlides: totalSlides,
-      slides: slides,
-      containerWidth: containerWidth,
-      setContainerWidth: setContainerWidth,
-      gap: gap,
-      contentWidth: contentWidth,
-      setContentWidth: setContentWidth,
-      spaceStart: spaceStart
+      activeSlide,
+      setActiveSlide,
+      totalSlides,
+      slides: newSlides,
+      containerWidth,
+      setContainerWidth,
+      gap,
+      contentWidth,
+      setContentWidth,
+      spaceStart
     }
   }, children);
 };
 
-var CarouselArrowModel = function CarouselArrowModel() {
-  var _useCarouselContext = useCarouselContext(),
-    activeSlide = _useCarouselContext.activeSlide,
-    slides = _useCarouselContext.slides,
-    totalSlides = _useCarouselContext.totalSlides,
-    setActiveSlide = _useCarouselContext.setActiveSlide,
-    spaceStart = _useCarouselContext.spaceStart;
-  var _useState = useState(true),
-    isLeftActive = _useState[0],
-    setLeftActive = _useState[1];
-  var _useState2 = useState(true),
-    isRightActive = _useState2[0],
-    setRightActive = _useState2[1];
-  var onClick = function onClick(click) {
+const CarouselArrowModel = () => {
+  const {
+    activeSlide,
+    slides,
+    totalSlides,
+    setActiveSlide,
+    spaceStart
+  } = useCarouselContext();
+  const [isLeftActive, setLeftActive] = useState(true);
+  const [isRightActive, setRightActive] = useState(true);
+  const onClick = click => {
     setSlide(click);
   };
-  var getTotal = function getTotal() {
-    return Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
-  };
-  var setSlide = function setSlide(click) {
-    if (click === void 0) {
-      click = 0;
-    }
-    var newSlide = activeSlide + click;
-    var last = getTotal();
+  const getTotal = () => Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
+  const setSlide = (click = 0) => {
+    const newSlide = activeSlide + click;
+    const last = getTotal();
     if (newSlide <= -1 || newSlide >= last) return;
     setActiveSlide(newSlide);
   };
-  useEffect(function () {
+  useEffect(() => {
     setLeftActive(activeSlide > 0);
     setRightActive(activeSlide < getTotal() - 1);
   }, [activeSlide]);
   return {
-    onClick: onClick,
-    isLeftActive: isLeftActive,
-    isRightActive: isRightActive
+    onClick,
+    isLeftActive,
+    isRightActive
   };
 };
 
@@ -176,102 +170,92 @@ var classNames = createCommonjsModule(function (module) {
 }());
 });
 
-var CarouselArrow = function CarouselArrow() {
-  var _CarouselArrowModel = CarouselArrowModel(),
-    _onClick = _CarouselArrowModel.onClick,
-    isLeftActive = _CarouselArrowModel.isLeftActive,
-    isRightActive = _CarouselArrowModel.isRightActive;
+const CarouselArrow = () => {
+  const {
+    onClick,
+    isLeftActive,
+    isRightActive
+  } = CarouselArrowModel();
   return React.createElement("div", {
     className: styles$1.carousel__arrows
   }, React.createElement("div", {
     className: classNames(styles$1.carousel__arrow, styles$1.carousel__arrow__left, !isLeftActive && styles$1.carousel__arrow__fade),
-    onClick: function onClick() {
-      return _onClick(-1);
-    }
+    onClick: () => onClick(-1)
   }, React.createElement("span", {
     className: styles$1.carousel__arrow__icon
   })), React.createElement("div", {
     className: classNames(styles$1.carousel__arrow, styles$1.carousel__arrow__right, !isRightActive && styles$1.carousel__arrow__fade),
-    onClick: function onClick() {
-      return _onClick(1);
-    }
+    onClick: () => onClick(1)
   }, React.createElement("span", {
     className: styles$1.carousel__arrow__icon
   })));
 };
 
-var styles$2 = {"carousel__page":"_16BmN","carousel__page__item":"_2tBSm","carousel__page__item__active":"_GdAyd"};
+var styles$2 = {"carousel__page":"_CarouselPagination-module__carousel__page__16BmN","carousel__page__item":"_CarouselPagination-module__carousel__page__item__2tBSm","carousel__page__item__active":"_CarouselPagination-module__carousel__page__item__active__GdAyd"};
 
-var CarouselPaginationModel = function CarouselPaginationModel() {
-  var _useCarouselContext = useCarouselContext(),
-    activeSlide = _useCarouselContext.activeSlide,
-    slides = _useCarouselContext.slides,
-    totalSlides = _useCarouselContext.totalSlides,
-    spaceStart = _useCarouselContext.spaceStart,
-    setActiveSlide = _useCarouselContext.setActiveSlide;
-  var getTotal = function getTotal() {
-    return Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
-  };
-  var onClick = function onClick(click) {
+const CarouselPaginationModel = () => {
+  const {
+    activeSlide,
+    slides,
+    totalSlides,
+    spaceStart,
+    setActiveSlide
+  } = useCarouselContext();
+  const getTotal = () => Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
+  const onClick = click => {
     setActiveSlide(click);
   };
   return {
     total: getTotal(),
     active: activeSlide,
-    onClick: onClick
+    onClick
   };
 };
 
-var CarouselPagination = function CarouselPagination(_) {
-  var _CarouselPaginationMo = CarouselPaginationModel(),
-    total = _CarouselPaginationMo.total,
-    active = _CarouselPaginationMo.active,
-    _onClick = _CarouselPaginationMo.onClick;
+const CarouselPagination = _ => {
+  const {
+    total,
+    active,
+    onClick
+  } = CarouselPaginationModel();
   return React.createElement("div", {
     className: styles$2.carousel__page
   }, Array.from({
     length: total
-  }, function (_, i) {
-    return React.createElement("div", {
-      key: i,
-      className: classNames(styles$2.carousel__page__item, active === i && styles$2.carousel__page__item__active),
-      onClick: function onClick() {
-        return _onClick(i);
-      }
-    });
-  }));
+  }, (_, i) => React.createElement("div", {
+    key: i,
+    className: classNames(styles$2.carousel__page__item, active === i && styles$2.carousel__page__item__active),
+    onClick: () => onClick(i)
+  })));
 };
 
-var CarouselModel = function CarouselModel(ref) {
-  var _useCarouselContext = useCarouselContext(),
-    activeSlide = _useCarouselContext.activeSlide,
-    gap = _useCarouselContext.gap,
-    setContainerWidth = _useCarouselContext.setContainerWidth,
-    slides = _useCarouselContext.slides,
-    contentWidth = _useCarouselContext.contentWidth,
-    totalSlides = _useCarouselContext.totalSlides,
-    spaceStart = _useCarouselContext.spaceStart;
-  var _useState = useState(0),
-    scroll = _useState[0],
-    setScroll = _useState[1];
-  var getTotal = function getTotal() {
-    return Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
-  };
-  var computeContainerWidth = function computeContainerWidth() {
+const CarouselModel = ref => {
+  const {
+    activeSlide,
+    gap,
+    setContainerWidth,
+    slides,
+    contentWidth,
+    totalSlides,
+    spaceStart
+  } = useCarouselContext();
+  const [scroll, setScroll] = useState(0);
+  const getTotal = () => Math.ceil(totalSlides / Math.floor(Number(slides) - Math.ceil(Number(spaceStart))));
+  const computeContainerWidth = () => {
     if (ref.current) {
-      var containerWidth = ref.current.offsetWidth;
+      const containerWidth = ref.current.offsetWidth;
       setContainerWidth(containerWidth);
     }
   };
-  var setContentWidth = function setContentWidth() {
-    var conWidth = contentWidth + Number(gap);
-    var width = Math.floor(Number(slides) - Math.ceil(Number(spaceStart))) * conWidth;
-    var newScroll = activeSlide * width - Number(spaceStart) * conWidth;
-    var isLastSlide = activeSlide === getTotal() - 1;
-    var isPartialSlide = Number(slides) % 1 !== 0;
+  const setContentWidth = () => {
+    const conWidth = contentWidth + Number(gap);
+    const width = Math.floor(Number(slides) - Math.ceil(Number(spaceStart))) * conWidth;
+    let newScroll = activeSlide * width - Number(spaceStart) * conWidth;
+    const isLastSlide = activeSlide === getTotal() - 1;
+    const isPartialSlide = Number(slides) % 1 !== 0;
     if (isLastSlide && activeSlide !== 0) {
       if (isPartialSlide) {
-        var fraction = Number(slides) - Math.floor(Number(slides));
+        const fraction = Number(slides) - Math.floor(Number(slides));
         newScroll -= contentWidth * fraction - Number(gap);
       } else {
         newScroll -= contentWidth * Number(spaceStart || 1) - Number(gap);
@@ -279,35 +263,31 @@ var CarouselModel = function CarouselModel(ref) {
     }
     setScroll(newScroll * -1);
   };
-  useEffect(function () {
+  useEffect(() => {
     computeContainerWidth();
   }, [ref]);
-  useEffect(function () {
+  useEffect(() => {
     setContentWidth();
   }, [contentWidth, activeSlide]);
-  useEffect(function () {
+  useEffect(() => {
     window.addEventListener('resize', computeContainerWidth);
-    return function () {
-      return window.removeEventListener('resize', computeContainerWidth);
-    };
+    return () => window.removeEventListener('resize', computeContainerWidth);
   }, []);
   return {
-    scroll: scroll
+    scroll
   };
 };
 
-var _excluded = ["children"],
-  _excluded2 = ["children"];
-var Carousel = function Carousel(_ref) {
-  var children = _ref.children,
-    props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  var totalSlides = React.Children.toArray(children).length;
-  var _props$slides = props.slides,
-    slides = _props$slides === void 0 ? 1 : _props$slides,
-    _props$gap = props.gap,
-    gap = _props$gap === void 0 ? 0 : _props$gap,
-    _props$spaceStart = props.spaceStart,
-    spaceStart = _props$spaceStart === void 0 ? 0 : _props$spaceStart;
+const Carousel = ({
+  children,
+  ...props
+}) => {
+  const totalSlides = React.Children.toArray(children).length;
+  const {
+    slides,
+    gap = 0,
+    spaceStart = 0
+  } = props;
   return React.createElement(CarouselProvider, {
     totalSlides: totalSlides,
     slides: slides,
@@ -315,49 +295,53 @@ var Carousel = function Carousel(_ref) {
     spaceStart: spaceStart
   }, React.createElement(CarouselContent, Object.assign({}, props), children));
 };
-var CarouselContent = function CarouselContent(_ref2) {
-  var children = _ref2.children,
-    props = _objectWithoutPropertiesLoose(_ref2, _excluded2);
-  var ref = useRef(null);
-  var _props$hasArrow = props.hasArrow,
-    hasArrow = _props$hasArrow === void 0 ? true : _props$hasArrow,
-    _props$hasPaging = props.hasPaging,
-    hasPaging = _props$hasPaging === void 0 ? true : _props$hasPaging,
-    _props$gap2 = props.gap,
-    gap = _props$gap2 === void 0 ? 15 : _props$gap2;
-  var _CarouselModel = CarouselModel(ref),
-    scroll = _CarouselModel.scroll;
+const CarouselContent = ({
+  children,
+  ...props
+}) => {
+  const ref = useRef(null);
+  const {
+    hasArrow = true,
+    hasPaging = true,
+    gap = 15
+  } = props;
+  const {
+    scroll
+  } = CarouselModel(ref);
   return React.createElement("div", {
     ref: ref,
     className: styles.carousel
   }, React.createElement("div", {
     className: styles.carousel__content,
     style: {
-      transform: "translateX(" + scroll + "px)",
-      gap: gap + "px"
+      transform: `translateX(${scroll}px)`,
+      gap: `${gap}px`
     }
   }, children), hasArrow && React.createElement(CarouselArrow, null), hasPaging && React.createElement(CarouselPagination, null));
 };
 
-var styles$3 = {"carousel__item":"_1HNEJ"};
+var styles$3 = {"carousel__item":"_CarouselItem-module__carousel__item__1HNEJ"};
 
-var CarouselItemModel = function CarouselItemModel() {
-  var _useCarouselContext = useCarouselContext(),
-    contentWidth = _useCarouselContext.contentWidth;
+const CarouselItemModel = () => {
+  const {
+    contentWidth
+  } = useCarouselContext();
   return {
     width: contentWidth
   };
 };
 
-var CarouselItem = function CarouselItem(_ref) {
-  var children = _ref.children;
-  var _CarouselItemModel = CarouselItemModel(),
-    width = _CarouselItemModel.width;
+const CarouselItem = ({
+  children
+}) => {
+  const {
+    width
+  } = CarouselItemModel();
   return React.createElement("div", {
     className: styles$3.carousel__item,
     style: {
-      width: width + "px",
-      minWidth: width + "px"
+      width: `${width}px`,
+      minWidth: `${width}px`
     }
   }, children);
 };
