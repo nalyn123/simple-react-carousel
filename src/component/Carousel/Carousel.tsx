@@ -5,7 +5,7 @@ import { CarouselArrow } from '../CarouselArrow/CarouselArrow'
 import { CarouselPagination } from '../CarouselPagination/CarouselPagination'
 import { CarouselProvider } from '@/context/CarouselProvider'
 import { CarouselModel } from './CarouselModel'
-import classNames from 'classNames'
+// import classNames from 'classNames'
 
 export const Carousel = ({ children, ...props }: CarouselProps) => {
   const totalSlides = React.Children.toArray(children).length
