@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback, useEffect, useContext, useRef } from 'react';
+import React, { createContext, useState, useEffect, useContext, useRef } from 'react';
 
 function _objectWithoutPropertiesLoose(r, e) {
   if (null == r) return {};
@@ -55,13 +55,12 @@ var CarouselProvider = function CarouselProvider(_ref) {
   var getTotal = function getTotal() {
     return Math.ceil(totalSlides / Math.floor(Number(newSlides) - Math.ceil(Number(spaceStart))));
   };
-  var computeActiveSlides = useCallback(function () {
-    var prev = activeSlide;
-    console.log(prev, getTotal(), prev < getTotal() - 1 ? prev + 1 : 0, (prev + 1) % getTotal());
+  var computeActiveSlides = function computeActiveSlides() {
     setActiveSlide(function (prev) {
+      console.log(prev, getTotal(), prev < getTotal() - 1 ? prev + 1 : 0, (prev + 1) % getTotal());
       return (prev + 1) % getTotal();
     });
-  }, [activeSlide, setActiveSlide]);
+  };
   useEffect(function () {
     computeSlides();
     window.addEventListener('resize', computeActiveSlides);
@@ -70,9 +69,15 @@ var CarouselProvider = function CarouselProvider(_ref) {
     };
   }, [slides]);
   useEffect(function () {
-    if (loop) {
+    var init = function init() {
       setInterval(computeActiveSlides, 5000);
+    };
+    if (loop) {
+      window.addEventListener('load', init);
     }
+    return function () {
+      return window.removeEventListener('load', init);
+    };
   }, []);
   useEffect(function () {
     setContentWidth();
