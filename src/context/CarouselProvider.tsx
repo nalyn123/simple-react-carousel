@@ -79,6 +79,11 @@ export const CarouselProvider = ({
   }
 
   useEffect(() => {
+    const prev = activeSlide
+    console.log(prev < getTotal() - 1 ? prev + 1 : 0)
+  }, [activeSlide])
+
+  useEffect(() => {
     computeSlides()
     window.addEventListener('resize', computeActiveSlides)
 

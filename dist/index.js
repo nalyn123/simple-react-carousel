@@ -64,6 +64,10 @@ var CarouselProvider = function CarouselProvider(_ref) {
     });
   };
   React.useEffect(function () {
+    var prev = activeSlide;
+    console.log(prev < getTotal() - 1 ? prev + 1 : 0);
+  }, [activeSlide]);
+  React.useEffect(function () {
     computeSlides();
     window.addEventListener('resize', computeActiveSlides);
     return function () {

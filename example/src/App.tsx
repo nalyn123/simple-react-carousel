@@ -20,33 +20,76 @@ const App = () => {
     // spaceStart: 0.5
   }
 
+  const carouselProps2 = {
+    // slides: {
+    //   0: 2,
+    //   768: 1
+    // },
+    // slides: 1,
+    // gap: 15
+    slides: 4,
+    hasArrow: false,
+    gap: 0,
+    loop: false
+    // spaceStart: 0.5
+  }
+
   return (
-    <Carousel className={styles.test2} {...carouselProps}>
-      <CarouselItem onClick={() => alert('test')} className={styles.test}>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-      <CarouselItem>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-      <CarouselItem>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-      <CarouselItem>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-      <CarouselItem>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-      <CarouselItem>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-      <CarouselItem>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-      <CarouselItem>
-        <img src={sampleImg} alt='' />
-      </CarouselItem>
-    </Carousel>
+    <>
+      <Carousel className={styles.test2} {...carouselProps}>
+        <CarouselItem onClick={() => alert('test')} className={styles.test}>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+      </Carousel>
+
+      <Carousel className={styles.test2} {...carouselProps2}>
+        <CarouselItem onClick={() => alert('test')} className={styles.test}>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+        <CarouselItem>
+          <img src={sampleImg} alt='' />
+        </CarouselItem>
+      </Carousel>
+    </>
   )
 }
 

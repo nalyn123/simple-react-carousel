@@ -61,6 +61,10 @@ var CarouselProvider = function CarouselProvider(_ref) {
     });
   };
   useEffect(function () {
+    var prev = activeSlide;
+    console.log(prev < getTotal() - 1 ? prev + 1 : 0);
+  }, [activeSlide]);
+  useEffect(function () {
     computeSlides();
     window.addEventListener('resize', computeActiveSlides);
     return function () {
