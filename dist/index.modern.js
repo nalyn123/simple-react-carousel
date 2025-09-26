@@ -21,8 +21,7 @@ var CarouselProvider = function CarouselProvider(_ref) {
     totalSlides = _ref.totalSlides,
     slides = _ref.slides,
     gap = _ref.gap,
-    spaceStart = _ref.spaceStart,
-    loop = _ref.loop;
+    spaceStart = _ref.spaceStart;
   var _useState = useState(0),
     activeSlide = _useState[0],
     setActiveSlide = _useState[1];
@@ -72,9 +71,6 @@ var CarouselProvider = function CarouselProvider(_ref) {
     };
   }, [slides]);
   useEffect(function () {
-    if (loop) {
-      setInterval(computeActiveSlides, 5000);
-    }
   }, []);
   useEffect(function () {
     setContentWidth();

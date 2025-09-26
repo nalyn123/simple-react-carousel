@@ -92,7 +92,7 @@ export const CarouselProvider = ({
 
   useEffect(() => {
     if (loop) {
-      setInterval(computeActiveSlides, 5000)
+      // setInterval(computeActiveSlides, 5000)
       // return () => clearInterval(timer)
     }
   }, [])
