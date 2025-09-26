@@ -57,9 +57,9 @@ var CarouselProvider = function CarouselProvider(_ref) {
   };
   var computeActiveSlides = useCallback(function () {
     var prev = activeSlide;
-    console.log(prev < getTotal() - 1 ? prev + 1 : 0);
+    console.log(prev, getTotal(), prev < getTotal() - 1 ? prev + 1 : 0, (prev + 1) % getTotal());
     setActiveSlide(function (prev) {
-      return prev < getTotal() - 1 ? prev + 1 : 0;
+      return (prev + 1) % getTotal();
     });
   }, [activeSlide]);
   useEffect(function () {

@@ -82,8 +82,13 @@ export const CarouselProvider = ({
 
   const computeActiveSlides = useCallback(() => {
     const prev = activeSlide
-    console.log(prev < getTotal() - 1 ? prev + 1 : 0)
-    setActiveSlide((prev) => (prev < getTotal() - 1 ? prev + 1 : 0))
+    console.log(
+      prev,
+      getTotal(),
+      prev < getTotal() - 1 ? prev + 1 : 0,
+      (prev + 1) % getTotal()
+    )
+    setActiveSlide((prev) => (prev + 1) % getTotal())
   }, [activeSlide])
 
   useEffect(() => {
