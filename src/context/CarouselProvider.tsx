@@ -89,7 +89,7 @@ export const CarouselProvider = ({
       (prev + 1) % getTotal()
     )
     setActiveSlide((prev) => (prev + 1) % getTotal())
-  }, [activeSlide])
+  }, [activeSlide, setActiveSlide])
 
   useEffect(() => {
     computeSlides()
