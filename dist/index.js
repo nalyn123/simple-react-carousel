@@ -55,9 +55,9 @@ var CarouselProvider = function CarouselProvider(_ref) {
       setNewSlides(Number(slides));
     }
   };
-  var getTotal = function getTotal() {
+  var getTotal = React.useCallback(function () {
     return Math.ceil(totalSlides / Math.floor(Number(newSlides) - Math.ceil(Number(spaceStart))));
-  };
+  }, [totalSlides, spaceStart, newSlides]);
   var computeActiveSlides = function computeActiveSlides() {
     setActiveSlide(function (prev) {
       console.log(prev, getTotal(), prev < getTotal() - 1 ? prev + 1 : 0, (prev + 1) % getTotal());
@@ -72,14 +72,10 @@ var CarouselProvider = function CarouselProvider(_ref) {
     };
   }, [slides]);
   React.useEffect(function () {
-    var init = function init() {
-      setInterval(computeActiveSlides, 5000);
-    };
-    if (loop) {
-      window.addEventListener('load', init);
-    }
+    if (!loop) return;
+    var timer = setInterval(computeActiveSlides, 5000);
     return function () {
-      return window.removeEventListener('load', init);
+      return clearInterval(timer);
     };
   }, []);
   React.useEffect(function () {
