@@ -57,7 +57,6 @@ var CarouselProvider = function CarouselProvider(_ref) {
   }, [totalSlides, spaceStart, newSlides]);
   var computeActiveSlides = function computeActiveSlides() {
     setActiveSlide(function (prev) {
-      console.log(prev, getTotal(), prev < getTotal() - 1 ? prev + 1 : 0, (prev + 1) % getTotal());
       return (prev + 1) % getTotal();
     });
   };
