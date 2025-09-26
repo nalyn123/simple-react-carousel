@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext, useRef } from 'react';
+import React, { createContext, useState, useCallback, useEffect, useContext, useRef } from 'react';
 
 function _objectWithoutPropertiesLoose(r, e) {
   if (null == r) return {};
@@ -21,7 +21,8 @@ var CarouselProvider = function CarouselProvider(_ref) {
     totalSlides = _ref.totalSlides,
     slides = _ref.slides,
     gap = _ref.gap,
-    spaceStart = _ref.spaceStart;
+    spaceStart = _ref.spaceStart,
+    loop = _ref.loop;
   var _useState = useState(0),
     activeSlide = _useState[0],
     setActiveSlide = _useState[1];
@@ -54,14 +55,12 @@ var CarouselProvider = function CarouselProvider(_ref) {
   var getTotal = function getTotal() {
     return Math.ceil(totalSlides / Math.floor(Number(newSlides) - Math.ceil(Number(spaceStart))));
   };
-  var computeActiveSlides = function computeActiveSlides() {
+  var computeActiveSlides = useCallback(function () {
+    var prev = activeSlide;
+    console.log(prev < getTotal() - 1 ? prev + 1 : 0);
     setActiveSlide(function (prev) {
       return prev < getTotal() - 1 ? prev + 1 : 0;
     });
-  };
-  useEffect(function () {
-    var prev = activeSlide;
-    console.log(prev < getTotal() - 1 ? prev + 1 : 0);
   }, [activeSlide]);
   useEffect(function () {
     computeSlides();
@@ -71,6 +70,9 @@ var CarouselProvider = function CarouselProvider(_ref) {
     };
   }, [slides]);
   useEffect(function () {
+    if (loop) {
+      setInterval(computeActiveSlides, 5000);
+    }
   }, []);
   useEffect(function () {
     setContentWidth();

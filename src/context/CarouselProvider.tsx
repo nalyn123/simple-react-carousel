@@ -1,4 +1,10 @@
-import React, { useContext, createContext, useState, useEffect } from 'react'
+import React, {
+  useContext,
+  createContext,
+  useState,
+  useEffect,
+  useCallback
+} from 'react'
 
 interface CarouselContextProps {
   activeSlide: number
@@ -74,13 +80,10 @@ export const CarouselProvider = ({
         Math.floor(Number(newSlides) - Math.ceil(Number(spaceStart)))
     )
 
-  const computeActiveSlides = () => {
-    setActiveSlide((prev) => (prev < getTotal() - 1 ? prev + 1 : 0))
-  }
-
-  useEffect(() => {
+  const computeActiveSlides = useCallback(() => {
     const prev = activeSlide
     console.log(prev < getTotal() - 1 ? prev + 1 : 0)
+    setActiveSlide((prev) => (prev < getTotal() - 1 ? prev + 1 : 0))
   }, [activeSlide])
 
   useEffect(() => {
@@ -92,7 +95,7 @@ export const CarouselProvider = ({
 
   useEffect(() => {
     if (loop) {
-      // setInterval(computeActiveSlides, 5000)
+      setInterval(computeActiveSlides, 5000)
       // return () => clearInterval(timer)
     }
   }, [])
